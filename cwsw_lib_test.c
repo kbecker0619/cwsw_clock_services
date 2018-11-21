@@ -21,6 +21,7 @@
 // ----	System Headers --------------------------
 #include <stdio.h>
 #include <stdlib.h>
+#include <limits.h>         // INT_MAX, INT_MIN
 
 // ----	Project Headers -------------------------
 #include <CUnit/Basic.h>
@@ -67,18 +68,28 @@ clean_suite(void)
 }
 
 static void
-init_lib()
+test_init_lib()
 {
     CU_ASSERT(!Init(Cwsw_Lib));
 }
 
-void test2()
+static void
+test_critical_section_en_dis_able()
 {
-    CU_ASSERT(2 * 2 == 4);
+    extern int protection_count;
+    CU_ASSERT_EQUAL(protection_count, 0);
+    CU_ASSERT_EQUAL(Cwsw_Critical_Release(0), -1);
+    CU_ASSERT_EQUAL(protection_count, -1);
+x    CU_ASSERT_EQUAL(Cwsw_Critical_Protect(0), 1);
+    CU_ASSERT_EQUAL(protection_count, 1);
+    CU_ASSERT_EQUAL(Cwsw_Critical_Release(0), 0);
+    CU_ASSERT_EQUAL(protection_count, 0);
+    protection_count = INT_MAX;
+    CU_ASSERT_EQUAL(Cwsw_Critical_Protect(0), INT_MIN);
+    CU_ASSERT_EQUAL(protection_count, INT_MIN);
 }
 
-int
-main(void)
+int main(void)
 {
 	CU_pSuite pSuite = NULL;
 
@@ -97,8 +108,8 @@ main(void)
 	}
 
 	/* Add the tests to the suite */
-	if( (NULL == CU_add_test(pSuite, "ConfirmUninit", init_lib))    ||
-        (NULL == CU_add_test(pSuite, "test2", test2)))
+	if( (NULL == CU_add_test(pSuite, "ConfirmUninit", test_init_lib))    ||
+        (NULL == CU_add_test(pSuite, "Critical Section", test_critical_section_en_dis_able)))
 	{
 		CU_cleanup_registry();
 		return CU_get_error();
