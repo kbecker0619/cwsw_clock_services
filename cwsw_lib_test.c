@@ -80,7 +80,7 @@ test_critical_section_en_dis_able()
     CU_ASSERT_EQUAL(protection_count, 0);
     CU_ASSERT_EQUAL(Cwsw_Critical_Release(0), -1);
     CU_ASSERT_EQUAL(protection_count, -1);
-x    CU_ASSERT_EQUAL(Cwsw_Critical_Protect(0), 1);
+    CU_ASSERT_EQUAL(Cwsw_Critical_Protect(0), 1);
     CU_ASSERT_EQUAL(protection_count, 1);
     CU_ASSERT_EQUAL(Cwsw_Critical_Release(0), 0);
     CU_ASSERT_EQUAL(protection_count, 0);
