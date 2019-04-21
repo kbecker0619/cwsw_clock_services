@@ -1,13 +1,13 @@
-/** @file cwsw_lib_test.c
- *	@brief	Primary Unit Test file for the CWSW Lib component.
+/** @file cwsw_lib_test_op_states.c
+ *	@brief	One-sentence short description of file.
  *
  *	Description:
  *
  *	Copyright (c) 2019 Kevin L. Becker. All rights reserved.
  *
  *	Original:
- *	Created on: Nov 11, 2018
- *	Author: kbecker
+ *	Created on: Apr 21, 2019
+ *	Author: KBECKE35
  *
  *	Current:
  *	$Revision: $
@@ -19,9 +19,6 @@
 // ============================================================================
 
 // ----	System Headers --------------------------
-#include <stdio.h>
-#include <stdlib.h>
-#include <limits.h>         // INT_MAX, INT_MIN
 
 // ----	Project Headers -------------------------
 #include <CUnit/Basic.h>
@@ -56,61 +53,37 @@
 // ----	Public Functions ------------------------------------------------------
 // ============================================================================
 
-static void
-test_critical_section_en_dis_able()
-{
-    extern int protection_count;
-    CU_ASSERT_EQUAL(protection_count, 0);
-    CU_ASSERT_EQUAL(Cwsw_Critical_Release(0), -1);
-    CU_ASSERT_EQUAL(protection_count, -1);
-    CU_ASSERT_EQUAL(Cwsw_Critical_Protect(0), 1);
-    CU_ASSERT_EQUAL(protection_count, 1);
-    CU_ASSERT_EQUAL(Cwsw_Critical_Release(0), 0);
-    CU_ASSERT_EQUAL(protection_count, 0);
-    protection_count = INT_MAX;
-    CU_ASSERT_EQUAL(Cwsw_Critical_Protect(0), INT_MIN);
-    CU_ASSERT_EQUAL(protection_count, INT_MIN);
-}
-
-
+/** Initialize the CUnit suite for the CWSW Library component.
+ *  For this edition of this UT suite, all we're looking for is to confirm that
+ *  the library has not yet been initialized.
+ * 
+ *	@return 0 for success.
+ *  @return non-0 for failure.
+ */
 int
-main(void)
+init_suite_lib_op_states(void)
 {
-    CU_pSuite pSuite = NULL;
-
-    /* Initialize the CUnit test registry */
-    if(CUE_SUCCESS != CU_initialize_registry())
-    {
-        return CU_get_error();
-    }
-
-    /* Add a suite to the registry.
-     * within the CWSW suite, we are using, generally, one suite per section of the requirements
-     * document, with a separate compilation unit for each suite. within the suite, distinct unit
-     * test files are used per requirement, or else, a distinct design element.
-     */
-    pSuite = CU_add_suite(
-    		"CWSW Library Component, Operating States",
-			init_suite_lib_op_states,
-			clean_suite_lib_op_states);
-    if(NULL == pSuite)
-    {
-        CU_cleanup_registry();
-        return CU_get_error();
-    }
-
-    /* Add the tests to the suite */
-    if( (NULL == CU_add_test(pSuite, "ConfirmUninit", test_init_lib))
-        /* || (NULL == CU_add_test(pSuite, "Critical Section", test_critical_section_en_dis_able)) */
-    )
-    {
-        CU_cleanup_registry();
-        return CU_get_error();
-    }
-
-	/* Run all tests using the CUnit Basic interface */
-	CU_basic_set_mode(CU_BRM_VERBOSE);
-	CU_basic_run_tests();
-	CU_cleanup_registry();
-	return CU_get_error();
+    return Get(Cwsw_Lib, Initialized);
 }
+
+/** Perform final cleanup of the CUnit suite for the CWSW Library component.
+ *  For this edition of this UT suite, there is no actual cleanup activity 
+ *  required, we are only confirming that the library indicates it's been 
+ *  initialized.
+ * 
+ *	@return 0 for success.
+ *  @return non-0 for failure.
+ */
+int
+clean_suite_lib_op_states(void)
+{
+    return !Get(Cwsw_Lib, Initialized);
+}
+
+
+void
+test_init_lib(void)
+{
+    CU_ASSERT(!Init(Cwsw_Lib));
+}
+
