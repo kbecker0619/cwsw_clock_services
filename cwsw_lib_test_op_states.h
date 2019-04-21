@@ -1,14 +1,10 @@
-/** @file cwsw_lib_test_op_states.h
+/** @file 
  *
  *	Copyright (c) 2019 Kevin L. Becker. All rights reserved.
  *
  *	Original:
  *	Created on: Apr 21, 2019
  *	Author: KBECKE35
- *
- *	Current:
- *	$Revision: $
- *	$Date: $
  */
 
 #ifndef UT_CWSW_LIB_TEST_OP_STATES_H_
@@ -55,7 +51,8 @@ extern int clean_suite_lib_op_states(void);
 /** @} */
 
 /** Tests for suite */
-extern void test_init_lib(void);
+extern void test_sr_lib_0001(void);
+extern void test_sr_lib_0002(void);
 
 
 #ifdef	__cplusplus

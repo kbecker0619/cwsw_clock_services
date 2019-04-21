@@ -78,35 +78,49 @@ main(void)
 {
     CU_pSuite pSuite = NULL;
 
-    /* Initialize the CUnit test registry */
+    /* Initialize the CUnit test registry for Operating States test suite */
     if(CUE_SUCCESS != CU_initialize_registry())
     {
         return CU_get_error();
     }
 
-    /* Add a suite to the registry.
-     * within the CWSW suite, we are using, generally, one suite per section of the requirements
-     * document, with a separate compilation unit for each suite. within the suite, distinct unit
-     * test files are used per requirement, or else, a distinct design element.
+    /* Note that all of these initialization and execution steps are designed to bail early upon
+     * any problem.
      */
-    pSuite = CU_add_suite(
-    		"CWSW Library Component, Operating States",
-			init_suite_lib_op_states,
-			clean_suite_lib_op_states);
-    if(NULL == pSuite)
-    {
-        CU_cleanup_registry();
-        return CU_get_error();
-    }
 
-    /* Add the tests to the suite */
-    if( (NULL == CU_add_test(pSuite, "ConfirmUninit", test_init_lib))
-        /* || (NULL == CU_add_test(pSuite, "Critical Section", test_critical_section_en_dis_able)) */
-    )
-    {
-        CU_cleanup_registry();
-        return CU_get_error();
-    }
+    do {	/* CUnit initialization */
+        /* Add a suite to the registry.
+         * within the CWSW suite, we are using, generally, one suite per section of the requirements
+         * document, with a separate compilation unit for each suite. within the suite, distinct unit
+         * test files are used per requirement, or else, a distinct design element.
+         */
+        pSuite = CU_add_suite(
+                "CWSW Library Component, Operating States",
+                init_suite_lib_op_states,
+                clean_suite_lib_op_states);
+        if(NULL == pSuite)
+        {
+            CU_cleanup_registry();
+            return CU_get_error();
+        }
+    } while(0);
+
+    do {	/* add tests to Operating States test suite */
+        if(!CU_add_test(pSuite, "Initialization Status API", test_sr_lib_0001))
+        {
+            CU_cleanup_registry();
+            return CU_get_error();
+        }
+
+        if( (NULL == CU_add_test(pSuite, "ConfirmUninit", test_sr_lib_0002))
+            /* || (NULL == CU_add_test(pSuite, "Critical Section", test_critical_section_en_dis_able)) */
+        )
+        {
+            CU_cleanup_registry();
+            return CU_get_error();
+        }
+    } while(0);
+
 
 	/* Run all tests using the CUnit Basic interface */
 	CU_basic_set_mode(CU_BRM_VERBOSE);
