@@ -77,7 +77,8 @@ int
 main(void)
 {
     CU_pSuite pSuite = NULL;
-
+    bool teststat = false;
+    
     /* Initialize the CUnit test registry for Operating States test suite */
     if(CUE_SUCCESS != CU_initialize_registry())
     {
@@ -106,19 +107,21 @@ main(void)
     } while(0);
 
     do {	/* add tests to Operating States test suite */
-        if(!CU_add_test(pSuite, "Initialization Status API", test_sr_lib_0001))
+        CU_pTest tests[5];
+        tests[0] = CU_add_test(pSuite, "SR_LIB_0001: Initialization Status API",          test_sr_lib_0001);
+        tests[1] = CU_add_test(pSuite, "SR_LIB_0002: Initialization API",                 test_sr_lib_0002);
+        tests[2] = CU_add_test(pSuite, "SR_LIB_0003: Initialization API Responsibilities",test_sr_lib_0003);
+        tests[3] = CU_add_test(pSuite, "SR_LIB_0004: Indication when uninitialized",      test_sr_lib_0004);
+        tests[4] = CU_add_test(pSuite, "SR_LIB_0005: Behavior when uninitialized",        test_sr_lib_0005);
+        if(!(tests[0] && tests[1] && tests[2] && tests[3] && tests[4]))
         {
             CU_cleanup_registry();
             return CU_get_error();
         }
-
-        if( (NULL == CU_add_test(pSuite, "ConfirmUninit", test_sr_lib_0002))
-            /* || (NULL == CU_add_test(pSuite, "Critical Section", test_critical_section_en_dis_able)) */
-        )
-        {
-            CU_cleanup_registry();
-            return CU_get_error();
-        }
+        
+        /* sr-lib-0004 & sr-lib-0005 are not yet ready for testing */
+        (void)CU_set_test_active(tests[3], CU_FALSE);
+        (void)CU_set_test_active(tests[4], CU_FALSE);
     } while(0);
 
 

@@ -45,14 +45,15 @@ extern "C" {
 // ----	Public API ------------------------------------------------------------
 // ============================================================================
 
-/** Operating States test suite. @{ */
 extern int init_suite_lib_op_states(void);
 extern int clean_suite_lib_op_states(void);
-/** @} */
 
-/** Tests for suite */
 extern void test_sr_lib_0001(void);
 extern void test_sr_lib_0002(void);
+extern void test_sr_lib_0003(void);
+extern void test_sr_lib_0004(void);
+extern void test_sr_lib_0005(void);
+
 
 
 #ifdef	__cplusplus

@@ -91,7 +91,7 @@ clean_suite_lib_op_states(void)
  *	The mere fact that this function compiles, proves that there is an interface
  *  to return the initialization status of the component.
  *
- *  @req{SR_LIB_0001}
+ *  @xreq{SR_LIB_0001}
  */
 void
 test_sr_lib_0001(void)
@@ -102,12 +102,52 @@ test_sr_lib_0001(void)
 
 
 /** Confirm presence of an API to initialize the component.
- *  @req{SR_LIB_0002}
+ *  @xreq{SR_LIB_0002}
  */
 void
 test_sr_lib_0002(void)
 {
     int initstat = Init(Cwsw_Lib);
-    CU_ASSERT((initstat == 0) || (initstat == 2));
+    /* check for either no problem, or reinitialization w/ no problem */
+    CU_ASSERT((0 == initstat) || (2 == initstat));
 }
 
+
+/** Confirm component's internal state is set correctly in init function.
+ *  @xreq{SR_LIB_0003}
+ */
+void
+test_sr_lib_0003(void)
+{
+    extern bool initialized;
+    extern int protection_count;
+    
+    initialized = false;        /* forcibly override any previous initialization */
+    protection_count = 1234;    /* random, meaningless value that is not 0 */
+    CU_ASSERT_EQUAL(Init(Cwsw_Lib), 0);
+    CU_ASSERT_EQUAL(initialized, true);
+    CU_ASSERT_EQUAL(protection_count, 0);
+}
+
+
+/** Confirm that all but init function indicate error condition if called before init.
+ *  @xreq{SR_LIB_0004}
+ */
+void
+test_sr_lib_0004(void)
+{
+    extern bool initialized;
+    
+    initialized = false;        /* forcibly override any previous initialization */
+    CU_FAIL("Test to be created yet");
+}
+
+
+/** Confirm that all but init function refuse to work if called before init. 
+ *  @xreq{SR_LIB_0005}
+ */
+void
+test_sr_lib_0005(void)
+{
+    CU_FAIL("Test to be created yet");
+}
