@@ -30,6 +30,7 @@
 // ----	Module Headers --------------------------
 #include "cwsw_lib.h"
 #include "cwsw_lib_test_op_states.h"
+#include "cwsw_lib_test_task_support.h"
 
 
 // ============================================================================
@@ -76,58 +77,91 @@ test_critical_section_en_dis_able()
 int
 main(void)
 {
-    CU_pSuite pSuite = NULL;
-    bool teststat = false;
-    
-    /* Initialize the CUnit test registry for Operating States test suite */
-    if(CUE_SUCCESS != CU_initialize_registry())
-    {
-        return CU_get_error();
-    }
+	CU_pSuite pSuite = NULL;
+	bool cu_setup_ok = false;
 
-    /* Note that all of these initialization and execution steps are designed to bail early upon
-     * any problem.
-     */
+	/* Initialize the CUnit test registry for Operating States test suite */
+	if(CUE_SUCCESS == CU_initialize_registry())
+	{
+		cu_setup_ok = true;
+	}
 
-    do {	/* CUnit initialization */
-        /* Add a suite to the registry.
-         * within the CWSW suite, we are using, generally, one suite per section of the requirements
-         * document, with a separate compilation unit for each suite. within the suite, distinct unit
-         * test files are used per requirement, or else, a distinct design element.
-         */
-        pSuite = CU_add_suite(
-                "CWSW Library Component, Operating States",
-                init_suite_lib_op_states,
-                clean_suite_lib_op_states);
-        if(NULL == pSuite)
-        {
-            CU_cleanup_registry();
-            return CU_get_error();
-        }
-    } while(0);
+	/* CWSW Library Operating States suite */
+	do
+	{
+		CU_pTest tests[5];
 
-    do {	/* add tests to Operating States test suite */
-        CU_pTest tests[5];
-        tests[0] = CU_add_test(pSuite, "SR_LIB_0001: Initialization Status API",          test_sr_lib_0001);
-        tests[1] = CU_add_test(pSuite, "SR_LIB_0002: Initialization API",                 test_sr_lib_0002);
-        tests[2] = CU_add_test(pSuite, "SR_LIB_0003: Initialization API Responsibilities",test_sr_lib_0003);
-        tests[3] = CU_add_test(pSuite, "SR_LIB_0004: Indication when uninitialized",      test_sr_lib_0004);
-        tests[4] = CU_add_test(pSuite, "SR_LIB_0005: Behavior when uninitialized",        test_sr_lib_0005);
-        if(!(tests[0] && tests[1] && tests[2] && tests[3] && tests[4]))
-        {
-            CU_cleanup_registry();
-            return CU_get_error();
-        }
-        
-        /* sr-lib-0004 & sr-lib-0005 are not yet ready for testing */
-        (void)CU_set_test_active(tests[3], CU_FALSE);
-        (void)CU_set_test_active(tests[4], CU_FALSE);
-    } while(0);
+		/* Add a suite to the registry.
+		 * within the CWSW suite, we are using, generally, one suite per section of the requirements
+		 * document, with a separate compilation unit for each suite. within the suite, distinct unit
+		 * test files are used per requirement, or else, a distinct design element.
+		 */
+		if(cu_setup_ok)
+		{
+			pSuite = CU_add_suite(
+					"CWSW Library Component, Operating States",
+					init_suite_lib_op_states,
+					clean_suite_lib_op_states);
+			if(NULL == pSuite)
+			{
+				cu_setup_ok = false;
+				break;
+			}
+		}
 
+		/* add tests to Operating States test suite */
+		tests[0] = CU_add_test(pSuite, "SR_LIB_0001: Initialization Status API", 			test_sr_lib_0001);
+		tests[1] = CU_add_test(pSuite, "SR_LIB_0002: Initialization API", 					test_sr_lib_0002);
+		tests[2] = CU_add_test(pSuite, "SR_LIB_0003: Initialization API Responsibilities",	test_sr_lib_0003);
+		tests[3] = CU_add_test(pSuite, "SR_LIB_0004: Indication when uninitialized",		test_sr_lib_0004);
+		tests[4] = CU_add_test(pSuite, "SR_LIB_0005: Behavior when uninitialized",			test_sr_lib_0005);
+		if(!tests[0] || !tests[1] || !tests[2] || !tests[3] || !tests[4])
+		{
+			cu_setup_ok = false;
+			break;
+		}
+
+		/* sr-lib-0004 & sr-lib-0005 are not yet ready for testing */
+		(void)CU_set_test_active(tests[3], CU_FALSE);
+		(void)CU_set_test_active(tests[4], CU_FALSE);
+	} while(0);
+
+	/* CWSW Library Tasking Support test suite */
+	do
+	{
+		CU_pTest tests[1];
+		if(cu_setup_ok)
+		{
+			pSuite = CU_add_suite(
+					"CWSW Library Component, Tasking Support",
+					init_suite_lib_task_support,
+					clean_suite_lib_task_support);
+			if(NULL == pSuite)
+			{
+				cu_setup_ok = false;
+				break;
+			}
+
+			/* add tests to Operating States test suite */
+			tests[0] = CU_add_test(pSuite, "SR_LIB_0201: Tasking Support API", 				test_sr_lib_0201);
+			if(!tests[0])
+			{
+				cu_setup_ok = false;
+				break;
+			}
+
+			/* sr-lib-0201 is not yet ready for testing */
+			(void)CU_set_test_active(tests[0], CU_FALSE);
+		}
+	} while(0);
 
 	/* Run all tests using the CUnit Basic interface */
-	CU_basic_set_mode(CU_BRM_VERBOSE);
-	CU_basic_run_tests();
+	if(cu_setup_ok)
+	{
+		CU_basic_set_mode(CU_BRM_VERBOSE);
+		CU_basic_run_tests();
+	}
+
 	CU_cleanup_registry();
 	return CU_get_error();
 }

@@ -1,14 +1,18 @@
-/** @file
+/** @file cwsw_lib_test_task_support.h
  *
  *	Copyright (c) 2019 Kevin L. Becker. All rights reserved.
  *
  *	Original:
- *	Created on: Apr 21, 2019
+ *	Created on: Apr 22, 2019
  *	Author: KBECKE35
  */
 
-#ifndef UT_CWSW_LIB_TEST_OP_STATES_H_
-#define UT_CWSW_LIB_TEST_OP_STATES_H_
+#ifndef UT_CWSW_LIB_TEST_TASK_SUPPORT_H_
+#define UT_CWSW_LIB_TEST_TASK_SUPPORT_H_
+
+#ifdef	__cplusplus
+extern "C" {
+#endif
 
 // ============================================================================
 // ----	Include Files ---------------------------------------------------------
@@ -19,11 +23,6 @@
 // ----	Project Headers -------------------------
 
 // ----	Module Headers --------------------------
-
-
-#ifdef	__cplusplus
-extern "C" {
-#endif
 
 
 // ============================================================================
@@ -42,19 +41,14 @@ extern "C" {
 // ----	Public API ------------------------------------------------------------
 // ============================================================================
 
-extern int init_suite_lib_op_states(void);
-extern int clean_suite_lib_op_states(void);
+extern int init_suite_lib_task_support(void);
+extern int clean_suite_lib_task_support(void);
 
-extern void test_sr_lib_0001(void);
-extern void test_sr_lib_0002(void);
-extern void test_sr_lib_0003(void);
-extern void test_sr_lib_0004(void);
-extern void test_sr_lib_0005(void);
-
+extern void test_sr_lib_0201(void);
 
 
 #ifdef	__cplusplus
 }
 #endif
 
-#endif /* UT_CWSW_LIB_TEST_OP_STATES_H_ */
+#endif /* UT_CWSW_LIB_TEST_TASK_SUPPORT_H_ */

@@ -53,7 +53,7 @@
 // ----	Public Functions ------------------------------------------------------
 // ============================================================================
 
-/** Initialize the CUnit suite for the CWSW Library component.
+/** Initialize the CUnit Operating States suite for the CWSW Library component.
  *  For this edition of this UT suite, all we're looking for is to confirm that
  *  the library has not yet been initialized.
  *
@@ -69,7 +69,7 @@ init_suite_lib_op_states(void)
     return CUE_SUCCESS;
 }
 
-/** Perform final cleanup of the CUnit suite for the CWSW Library component.
+/** Perform final cleanup of the Operating States suite for the CWSW Library component.
  *  For this edition of this UT suite, there is no actual cleanup activity
  *  required, we are only confirming that the library indicates it's been
  *  initialized.
@@ -121,7 +121,7 @@ test_sr_lib_0003(void)
 {
     extern bool initialized;
     extern int protection_count;
-    
+
     initialized = false;        /* forcibly override any previous initialization */
     protection_count = 1234;    /* random, meaningless value that is not 0 */
     CU_ASSERT_EQUAL(Init(Cwsw_Lib), 0);
@@ -137,13 +137,13 @@ void
 test_sr_lib_0004(void)
 {
     extern bool initialized;
-    
+
     initialized = false;        /* forcibly override any previous initialization */
     CU_FAIL("Test to be created yet");
 }
 
 
-/** Confirm that all but init function refuse to work if called before init. 
+/** Confirm that all but init function refuse to work if called before init.
  *  @xreq{SR_LIB_0005}
  */
 void
