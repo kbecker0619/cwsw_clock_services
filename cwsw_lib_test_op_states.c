@@ -102,10 +102,10 @@ test_sr_lib_0001(void)
 
 
 /** Confirm presence of an API to initialize the component.
- *  @xreq{SR_LIB_0002}
+ *  @xreq{SR_LIB_0000}
  */
 void
-test_sr_lib_0002(void)
+test_sr_lib_0000(void)
 {
     int initstat = Init(Cwsw_Lib);
     /* check for either no problem, or reinitialization w/ no problem */
@@ -114,10 +114,10 @@ test_sr_lib_0002(void)
 
 
 /** Confirm component's internal state is set correctly in init function.
- *  @xreq{SR_LIB_0003}
+ *  @xreq{SR_LIB_0002}
  */
 void
-test_sr_lib_0003(void)
+test_sr_lib_0002(void)
 {
     extern bool initialized;
     extern int protection_count;
@@ -131,10 +131,10 @@ test_sr_lib_0003(void)
 
 
 /** Confirm that all but init function indicate error condition if called before init.
- *  @xreq{SR_LIB_0004}
+ *  @xreq{SR_LIB_0003}
  */
 void
-test_sr_lib_0004(void)
+test_sr_lib_0003(void)
 {
     extern bool initialized;
 
@@ -144,7 +144,7 @@ test_sr_lib_0004(void)
 
 
 /** Confirm that all but init function refuse to work if called before init.
- *  @xreq{SR_LIB_0005}
+ *  @xreq{SR_LIB_0004}
  */
 void
 test_sr_lib_0005(void)

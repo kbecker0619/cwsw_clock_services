@@ -44,7 +44,7 @@ extern "C" {
 extern int init_suite_lib_task_support(void);
 extern int clean_suite_lib_task_support(void);
 
-extern void test_sr_lib_0201(void);
+extern void test_sr_lib_0200(void);
 
 
 #ifdef	__cplusplus

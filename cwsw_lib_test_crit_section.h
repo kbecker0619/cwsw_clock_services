@@ -1,14 +1,14 @@
-/** @file
+/** @file cwsw_lib_test_crit_section.h
  *
  *	Copyright (c) 2019 Kevin L. Becker. All rights reserved.
  *
  *	Original:
- *	Created on: Apr 21, 2019
+ *	Created on: Apr 22, 2019
  *	Author: KBECKE35
  */
 
-#ifndef UT_CWSW_LIB_TEST_OP_STATES_H_
-#define UT_CWSW_LIB_TEST_OP_STATES_H_
+#ifndef UT_CWSW_LIB_TEST_CRIT_SECTION_H_
+#define UT_CWSW_LIB_TEST_CRIT_SECTION_H_
 
 // ============================================================================
 // ----	Include Files ---------------------------------------------------------
@@ -42,19 +42,9 @@ extern "C" {
 // ----	Public API ------------------------------------------------------------
 // ============================================================================
 
-extern int init_suite_lib_op_states(void);
-extern int clean_suite_lib_op_states(void);
-
-extern void test_sr_lib_0000(void);
-extern void test_sr_lib_0001(void);
-extern void test_sr_lib_0002(void);
-extern void test_sr_lib_0003(void);
-extern void test_sr_lib_0005(void);
-
-
 
 #ifdef	__cplusplus
 }
 #endif
 
-#endif /* UT_CWSW_LIB_TEST_OP_STATES_H_ */
+#endif /* UT_CWSW_LIB_TEST_CRIT_SECTION_H_ */

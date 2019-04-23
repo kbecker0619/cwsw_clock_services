@@ -110,11 +110,11 @@ main(void)
 		}
 
 		/* add tests to Operating States test suite */
-		tests[0] = CU_add_test(pSuite, "SR_LIB_0001: Initialization Status API", 			test_sr_lib_0001);
-		tests[1] = CU_add_test(pSuite, "SR_LIB_0002: Initialization API", 					test_sr_lib_0002);
-		tests[2] = CU_add_test(pSuite, "SR_LIB_0003: Initialization API Responsibilities",	test_sr_lib_0003);
-		tests[3] = CU_add_test(pSuite, "SR_LIB_0004: Indication when uninitialized",		test_sr_lib_0004);
-		tests[4] = CU_add_test(pSuite, "SR_LIB_0005: Behavior when uninitialized",			test_sr_lib_0005);
+		tests[0] = CU_add_test(pSuite, "SR_LIB_0000: Initialization API", 					test_sr_lib_0000);
+		tests[1] = CU_add_test(pSuite, "SR_LIB_0001: Initialization Status API", 			test_sr_lib_0001);
+		tests[2] = CU_add_test(pSuite, "SR_LIB_0002: Initialization API Responsibilities",	test_sr_lib_0002);
+		tests[3] = CU_add_test(pSuite, "SR_LIB_0003: Indication when uninitialized",		test_sr_lib_0003);
+		tests[4] = CU_add_test(pSuite, "SR_LIB_0004: Behavior when uninitialized",			test_sr_lib_0005);
 		if(!tests[0] || !tests[1] || !tests[2] || !tests[3] || !tests[4])
 		{
 			cu_setup_ok = false;
@@ -143,7 +143,7 @@ main(void)
 			}
 
 			/* add tests to Operating States test suite */
-			tests[0] = CU_add_test(pSuite, "SR_LIB_0201: Tasking Support API", 				test_sr_lib_0201);
+			tests[0] = CU_add_test(pSuite, "SR_LIB_0200: Tasking Support API", 				test_sr_lib_0200);
 			if(!tests[0])
 			{
 				cu_setup_ok = false;
