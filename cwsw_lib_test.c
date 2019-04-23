@@ -31,6 +31,7 @@
 #include "cwsw_lib.h"
 #include "cwsw_lib_test_op_states.h"
 #include "cwsw_lib_test_task_support.h"
+#include "cwsw_lib_test_crit_section.h"
 
 
 // ============================================================================
@@ -60,17 +61,17 @@
 static void
 test_critical_section_en_dis_able()
 {
-    extern int protection_count;
-    CU_ASSERT_EQUAL(protection_count, 0);
+    extern int cwsw_lib_cs_protection_count;
+    CU_ASSERT_EQUAL(cwsw_lib_cs_protection_count, 0);
     CU_ASSERT_EQUAL(Cwsw_Critical_Release(0), -1);
-    CU_ASSERT_EQUAL(protection_count, -1);
+    CU_ASSERT_EQUAL(cwsw_lib_cs_protection_count, -1);
     CU_ASSERT_EQUAL(Cwsw_Critical_Protect(0), 1);
-    CU_ASSERT_EQUAL(protection_count, 1);
+    CU_ASSERT_EQUAL(cwsw_lib_cs_protection_count, 1);
     CU_ASSERT_EQUAL(Cwsw_Critical_Release(0), 0);
-    CU_ASSERT_EQUAL(protection_count, 0);
-    protection_count = INT_MAX;
+    CU_ASSERT_EQUAL(cwsw_lib_cs_protection_count, 0);
+    cwsw_lib_cs_protection_count = INT_MAX;
     CU_ASSERT_EQUAL(Cwsw_Critical_Protect(0), INT_MIN);
-    CU_ASSERT_EQUAL(protection_count, INT_MIN);
+    CU_ASSERT_EQUAL(cwsw_lib_cs_protection_count, INT_MIN);
 }
 
 
@@ -152,6 +153,31 @@ main(void)
 
 			/* sr-lib-0201 is not yet ready for testing */
 			(void)CU_set_test_active(tests[0], CU_FALSE);
+		}
+	} while(0);
+
+	/* CWSW Library Protected Regions test suite */
+	do {
+		CU_pTest tests[1];
+		if(cu_setup_ok)
+		{
+			pSuite = CU_add_suite(
+					"CWSW Library Component, Protected Regions Support",
+					init_suite_lib_crit_section,
+					clean_suite_lib_crit_section);
+			if(NULL == pSuite)
+			{
+				cu_setup_ok = false;
+				break;
+			}
+
+			/* add tests to Operating States test suite */
+			tests[0] = CU_add_test(pSuite, "SR_LIB_0300: Critical Section API", 			test_sr_lib_0301);
+			if(!tests[0])
+			{
+				cu_setup_ok = false;
+				break;
+			}
 		}
 	} while(0);
 

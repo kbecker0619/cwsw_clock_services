@@ -42,6 +42,11 @@ extern "C" {
 // ----	Public API ------------------------------------------------------------
 // ============================================================================
 
+extern int init_suite_lib_crit_section(void);
+extern int clean_suite_lib_crit_section(void);
+
+extern void test_sr_lib_0301(void);
+
 
 #ifdef	__cplusplus
 }

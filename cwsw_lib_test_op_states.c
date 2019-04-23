@@ -119,14 +119,14 @@ test_sr_lib_0000(void)
 void
 test_sr_lib_0002(void)
 {
-    extern bool initialized;
-    extern int protection_count;
+    extern bool cwsw_lib_initialized;
+    extern int cwsw_lib_cs_protection_count;
 
-    initialized = false;        /* forcibly override any previous initialization */
-    protection_count = 1234;    /* random, meaningless value that is not 0 */
+    cwsw_lib_initialized = false;			/* forcibly override any previous initialization */
+    cwsw_lib_cs_protection_count = 1234;	/* random, meaningless value that is not 0 */
     CU_ASSERT_EQUAL(Init(Cwsw_Lib), 0);
-    CU_ASSERT_EQUAL(initialized, true);
-    CU_ASSERT_EQUAL(protection_count, 0);
+    CU_ASSERT_EQUAL(cwsw_lib_initialized, true);
+    CU_ASSERT_EQUAL(cwsw_lib_cs_protection_count, 0);
 }
 
 
@@ -136,9 +136,9 @@ test_sr_lib_0002(void)
 void
 test_sr_lib_0003(void)
 {
-    extern bool initialized;
+    extern bool cwsw_lib_initialized;
 
-    initialized = false;        /* forcibly override any previous initialization */
+    cwsw_lib_initialized = false;        /* forcibly override any previous initialization */
     CU_FAIL("Test to be created yet");
 }
 
