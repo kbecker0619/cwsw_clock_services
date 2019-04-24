@@ -81,7 +81,8 @@ clean_suite_lib_crit_section(void)
 
 
 /** Confirm presence of an API to support component tasks.
- *  @xreq{SR_LIB_0301}
+ *  @xreq{SR_LIB_0301}  (Primary)
+ *  @xreq{SR_LIB_0300}  (Support)
  */
 void
 test_sr_lib_0301(void)
@@ -90,5 +91,22 @@ test_sr_lib_0301(void)
      * revision of the requirements document)
      */
     int protct = Cwsw_Critical_Protect(0); UNUSED(protct);
+    CU_PASS("Tasking API Exists");
+}
+
+
+/** Confirm presence of an API to support component tasks.
+ *  This test confirms the "leave" API that is complementary to the "enter" API
+ *  tested as part of sr-lib-0301
+ *  @xreq{SR_LIB_0302}  (Primary)
+ *  @xreq{SR_LIB_0300}  (Support)
+ */
+void
+test_sr_lib_0302(void)
+{
+    /* if this compiles, we've satisfied the requirement (as of the current
+     * revision of the requirements document)
+     */
+    int protct = Cwsw_Critical_Release(0); UNUSED(protct);
     CU_PASS("Tasking API Exists");
 }

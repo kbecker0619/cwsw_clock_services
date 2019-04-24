@@ -116,7 +116,12 @@ main(void)
 		tests[2] = CU_add_test(pSuite, "SR_LIB_0002: Initialization API Responsibilities",	test_sr_lib_0002);
 		tests[3] = CU_add_test(pSuite, "SR_LIB_0003: Indication when uninitialized",		test_sr_lib_0003);
 		tests[4] = CU_add_test(pSuite, "SR_LIB_0004: Behavior when uninitialized",			test_sr_lib_0005);
-		if(!tests[0] || !tests[1] || !tests[2] || !tests[3] || !tests[4])
+		if( !tests[0] || 
+            !tests[1] ||
+            !tests[2] ||
+            !tests[3] ||
+            !tests[4]  
+            )
 		{
 			cu_setup_ok = false;
 			break;
@@ -158,7 +163,7 @@ main(void)
 
 	/* CWSW Library Protected Regions test suite */
 	do {
-		CU_pTest tests[1];
+		CU_pTest tests[2];
 		if(cu_setup_ok)
 		{
 			pSuite = CU_add_suite(
@@ -172,8 +177,10 @@ main(void)
 			}
 
 			/* add tests to Operating States test suite */
-			tests[0] = CU_add_test(pSuite, "SR_LIB_0300: Critical Section API", 			test_sr_lib_0301);
-			if(!tests[0])
+			tests[0] = CU_add_test(pSuite, "SR_LIB_0301: Critical Section API, Enter",		test_sr_lib_0301);
+			tests[1] = CU_add_test(pSuite, "SR_LIB_0302: Critical Section API, Leave",		test_sr_lib_0302);
+			if( !tests[0] ||
+                !tests[1])
 			{
 				cu_setup_ok = false;
 				break;
