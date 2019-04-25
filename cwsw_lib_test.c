@@ -163,7 +163,7 @@ main(void)
 
 	/* CWSW Library Protected Regions test suite */
 	do {
-		CU_pTest tests[3];
+		CU_pTest tests[5];
 		if(cu_setup_ok)
 		{
 			pSuite = CU_add_suite(
@@ -180,10 +180,13 @@ main(void)
 			tests[0] = CU_add_test(pSuite, "SR_LIB_0301: Critical Section API, Enter",			test_sr_lib_0301);
 			tests[1] = CU_add_test(pSuite, "SR_LIB_0302: Critical Section API, Leave",			test_sr_lib_0302);
 			tests[2] = CU_add_test(pSuite, "SR_LIB_0303: Critical Section Counter: Inactive",	test_sr_lib_0303_floor);
-
+			tests[3] = CU_add_test(pSuite, "SR_LIB_0303: Critical Section Counter: Increment to Max Nesting Depth",	test_sr_lib_0303_ceiling);
+			tests[4] = CU_add_test(pSuite, "SR_LIB_0304: Critical Section Counter: Decrement from Max Nesting Depth",	test_sr_lib_0304_ceiling);
 			if(   !tests[0]
 			   || !tests[1]
 			   || !tests[2]
+			   || !tests[3]
+			   || !tests[4]
 			   )
 			{
 				cu_setup_ok = false;

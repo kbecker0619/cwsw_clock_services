@@ -130,3 +130,43 @@ test_sr_lib_0303_floor(void)
 	CU_ASSERT_EQUAL(cwsw_lib_cs_protection_count, 1);
 	CU_ASSERT_EQUAL(localct, 1);
 }
+
+
+/**	Confirm behavior of critical-section nesting counter incrementation:
+ *	test at upper end of range.
+ *	Since the data range is specified to be one-sided, there is no concern
+ *	about "crossover" such as passing from negative to positive values.
+ *
+ *	@xreq{SR_LIB_0303}	Increment nesting counter upon entry.	(Primary)
+ *	@xreq{SR_LIB_0305}	Data range of nesting counter.			(Primary, Shared)
+ */
+void
+test_sr_lib_0303_ceiling(void)
+{
+	extern cwsw_lib_cs_protection_count;
+	int localct = 1234;	/* just want some value non-zero, unlikely to be seen */
+
+	cwsw_lib_cs_protection_count = INT_MAX - 1;	/* sr-lib-0305: data range ceiling is INT_MAX, after incrementation */
+	localct = Cwsw_Critical_Protect(0);
+	CU_ASSERT_EQUAL(cwsw_lib_cs_protection_count, INT_MAX);
+	CU_ASSERT_EQUAL(localct, INT_MAX);
+}
+
+
+/**	Confirm behavior of critical-range nesting counter decrementation: begin @
+ *	max value of counter range.
+ *
+ *	@xreq{SR_LIB_0304}	Decrement nesting counter upon entry 	(Primary)
+ *	@xreq{SR_LIB_0305}	Data range of nesting counter.			(Primary, Shared)
+ */
+void
+test_sr_lib_0304_ceiling(void)
+{
+	extern cwsw_lib_cs_protection_count;
+	int localct = 1234;	/* just want some value non-zero, unlikely to be seen */
+
+	cwsw_lib_cs_protection_count = INT_MAX;	/* sr-lib-0305: data range ceiling is INT_MAX */
+	localct = Cwsw_Critical_Release(0);
+	CU_ASSERT_EQUAL(cwsw_lib_cs_protection_count, INT_MAX - 1);
+	CU_ASSERT_EQUAL(localct, INT_MAX - 1);
+}

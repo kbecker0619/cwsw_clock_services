@@ -48,7 +48,8 @@ extern int clean_suite_lib_crit_section(void);
 extern void test_sr_lib_0301(void);
 extern void test_sr_lib_0302(void);
 extern void test_sr_lib_0303_floor(void);
-
+extern void test_sr_lib_0303_ceiling(void);
+extern void test_sr_lib_0304_ceiling(void);
 
 
 #ifdef	__cplusplus
