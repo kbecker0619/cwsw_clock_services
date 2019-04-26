@@ -58,23 +58,6 @@
 // ----	Public Functions ------------------------------------------------------
 // ============================================================================
 
-static void
-test_critical_section_en_dis_able()
-{
-    extern int cwsw_lib_cs_protection_count;
-    CU_ASSERT_EQUAL(cwsw_lib_cs_protection_count, 0);
-    CU_ASSERT_EQUAL(Cwsw_Critical_Release(0), -1);
-    CU_ASSERT_EQUAL(cwsw_lib_cs_protection_count, -1);
-    CU_ASSERT_EQUAL(Cwsw_Critical_Protect(0), 1);
-    CU_ASSERT_EQUAL(cwsw_lib_cs_protection_count, 1);
-    CU_ASSERT_EQUAL(Cwsw_Critical_Release(0), 0);
-    CU_ASSERT_EQUAL(cwsw_lib_cs_protection_count, 0);
-    cwsw_lib_cs_protection_count = INT_MAX;
-    CU_ASSERT_EQUAL(Cwsw_Critical_Protect(0), INT_MIN);
-    CU_ASSERT_EQUAL(cwsw_lib_cs_protection_count, INT_MIN);
-}
-
-
 int
 main(void)
 {
@@ -163,7 +146,7 @@ main(void)
 
 	/* CWSW Library Protected Regions test suite */
 	do {
-		CU_pTest tests[5];
+		CU_pTest tests[6];
 		if(cu_setup_ok)
 		{
 			pSuite = CU_add_suite(
@@ -180,13 +163,15 @@ main(void)
 			tests[0] = CU_add_test(pSuite, "SR_LIB_0301: Critical Section API, Enter",			test_sr_lib_0301);
 			tests[1] = CU_add_test(pSuite, "SR_LIB_0302: Critical Section API, Leave",			test_sr_lib_0302);
 			tests[2] = CU_add_test(pSuite, "SR_LIB_0303: Critical Section Counter: Inactive",	test_sr_lib_0303_floor);
-			tests[3] = CU_add_test(pSuite, "SR_LIB_0303: Critical Section Counter: Increment to Max Nesting Depth",	test_sr_lib_0303_ceiling);
+			tests[3] = CU_add_test(pSuite, "SR_LIB_0303: Critical Section Counter: Increment to Max Nesting Depth",		test_sr_lib_0303_ceiling);
 			tests[4] = CU_add_test(pSuite, "SR_LIB_0304: Critical Section Counter: Decrement from Max Nesting Depth",	test_sr_lib_0304_ceiling);
+			tests[5] = CU_add_test(pSuite, "SR_LIB_0304: Critical Section Counter: Decrement to Inactive",				test_sr_lib_0304_floor);
 			if(   !tests[0]
 			   || !tests[1]
 			   || !tests[2]
 			   || !tests[3]
 			   || !tests[4]
+			   || !tests[5]
 			   )
 			{
 				cu_setup_ok = false;

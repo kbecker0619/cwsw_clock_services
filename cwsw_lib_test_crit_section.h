@@ -50,6 +50,7 @@ extern void test_sr_lib_0302(void);
 extern void test_sr_lib_0303_floor(void);
 extern void test_sr_lib_0303_ceiling(void);
 extern void test_sr_lib_0304_ceiling(void);
+extern void test_sr_lib_0304_floor(void);
 
 
 #ifdef	__cplusplus

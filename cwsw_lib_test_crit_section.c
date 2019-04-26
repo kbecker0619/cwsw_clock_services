@@ -122,7 +122,7 @@ test_sr_lib_0302(void)
 void
 test_sr_lib_0303_floor(void)
 {
-	extern cwsw_lib_cs_protection_count;
+	extern int cwsw_lib_cs_protection_count;
 	int localct = INT_MAX;	/* just want some value non-zero, unlikely to be seen */
 
 	cwsw_lib_cs_protection_count = 0;	/* sr-lib-0305: data range floor is 0 */
@@ -143,7 +143,7 @@ test_sr_lib_0303_floor(void)
 void
 test_sr_lib_0303_ceiling(void)
 {
-	extern cwsw_lib_cs_protection_count;
+	extern int cwsw_lib_cs_protection_count;
 	int localct = 1234;	/* just want some value non-zero, unlikely to be seen */
 
 	cwsw_lib_cs_protection_count = INT_MAX - 1;	/* sr-lib-0305: data range ceiling is INT_MAX, after incrementation */
@@ -162,11 +162,30 @@ test_sr_lib_0303_ceiling(void)
 void
 test_sr_lib_0304_ceiling(void)
 {
-	extern cwsw_lib_cs_protection_count;
+	extern int cwsw_lib_cs_protection_count;
 	int localct = 1234;	/* just want some value non-zero, unlikely to be seen */
 
 	cwsw_lib_cs_protection_count = INT_MAX;	/* sr-lib-0305: data range ceiling is INT_MAX */
 	localct = Cwsw_Critical_Release(0);
 	CU_ASSERT_EQUAL(cwsw_lib_cs_protection_count, INT_MAX - 1);
 	CU_ASSERT_EQUAL(localct, INT_MAX - 1);
+}
+
+
+/**	Confirm behavior of critical-section nesting counter decrementation: when
+ *	the counter is just above the floor.
+ *
+ *	@xreq{SR_LIB_0304}	Decrement nesting counter upon entry 	(Primary)
+ *	@xreq{SR_LIB_0305}	Data range of nesting counter.			(Primary, Shared)
+ */
+void
+test_sr_lib_0304_floor(void)
+{
+	extern int cwsw_lib_cs_protection_count;
+	int localct = 1234;	/* just want some value non-zero, unlikely to be seen */
+
+	cwsw_lib_cs_protection_count = 1;
+	localct = Cwsw_Critical_Release(0);
+	CU_ASSERT_EQUAL(cwsw_lib_cs_protection_count, 0);
+	CU_ASSERT_EQUAL(localct, 0);
 }
