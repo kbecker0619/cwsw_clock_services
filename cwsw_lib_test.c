@@ -73,7 +73,7 @@ main(void)
 	/* CWSW Library Operating States suite */
 	do
 	{
-		CU_pTest tests[5];
+		CU_pTest tests[5] = {0};
 
 		/* Add a suite to the registry.
 		 * within the CWSW suite, we are using, generally, one suite per section of the requirements
@@ -118,7 +118,7 @@ main(void)
 	/* CWSW Library Tasking Support test suite */
 	do
 	{
-		CU_pTest tests[1];
+		CU_pTest tests[1] = {0};
 		if(cu_setup_ok)
 		{
 			pSuite = CU_add_suite(
@@ -132,21 +132,21 @@ main(void)
 			}
 
 			/* add tests to Operating States test suite */
-			tests[0] = CU_add_test(pSuite, "SR_LIB_0200: Tasking Support API", 				test_sr_lib_0200);
+			tests[0] = CU_add_test(pSuite, "SR_LIB_0200: Tasking Support API", test_sr_lib_0200);
 			if(!tests[0])
 			{
 				cu_setup_ok = false;
 				break;
 			}
 
-			/* sr-lib-0201 is not yet ready for testing */
+			/* sr_lib_0201 is not yet ready for testing */
 			(void)CU_set_test_active(tests[0], CU_FALSE);
 		}
 	} while(0);
 
 	/* CWSW Library Protected Regions test suite */
 	do {
-		CU_pTest tests[6];
+		CU_pTest tests[7] = {0};
 		if(cu_setup_ok)
 		{
 			pSuite = CU_add_suite(
@@ -166,6 +166,7 @@ main(void)
 			tests[3] = CU_add_test(pSuite, "SR_LIB_0303: Critical Section Counter: Increment to Max Nesting Depth",		test_sr_lib_0303_ceiling);
 			tests[4] = CU_add_test(pSuite, "SR_LIB_0304: Critical Section Counter: Decrement from Max Nesting Depth",	test_sr_lib_0304_ceiling);
 			tests[5] = CU_add_test(pSuite, "SR_LIB_0304: Critical Section Counter: Decrement to Inactive",				test_sr_lib_0304_floor);
+			tests[5] = CU_add_test(pSuite, "SR_LIB_0306: Critical Section Counter: Invalid Value",						test_sr_lib_0306);
 			if(   !tests[0]
 			   || !tests[1]
 			   || !tests[2]

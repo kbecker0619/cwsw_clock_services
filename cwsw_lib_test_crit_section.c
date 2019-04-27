@@ -146,7 +146,7 @@ test_sr_lib_0303_ceiling(void)
 	extern int cwsw_lib_cs_protection_count;
 	int localct = 1234;	/* just want some value non-zero, unlikely to be seen */
 
-	cwsw_lib_cs_protection_count = INT_MAX - 1;	/* sr-lib-0305: data range ceiling is INT_MAX, after incrementation */
+	cwsw_lib_cs_protection_count = INT_MAX - 1;	/* sr_lib_0305: data range ceiling is INT_MAX, after incrementation */
 	localct = Cwsw_Critical_Protect(0);
 	CU_ASSERT_EQUAL(cwsw_lib_cs_protection_count, INT_MAX);
 	CU_ASSERT_EQUAL(localct, INT_MAX);
@@ -188,4 +188,27 @@ test_sr_lib_0304_floor(void)
 	localct = Cwsw_Critical_Release(0);
 	CU_ASSERT_EQUAL(cwsw_lib_cs_protection_count, 0);
 	CU_ASSERT_EQUAL(localct, 0);
+}
+
+
+/** Confirm invalid critical-section nesting counter handling.
+ *	Because of the way we have defined the data range, the only way to have an
+ *	invalid data range fault is if the counter is negative. Note: calling enter
+ *	when the counter is already at max will result in a data-range fault. The
+ *	requirement is stated in terms of the range of the counter, not the value
+ *	of the counter when the enter or leave APIs are called.
+ *
+ *	@xreq{SR_LIB_0306}	Behavior when nesting counter invalid.	(Primary)
+ *	@xreq{SR_LIB_0305}	Data range of nesting counter.			(Primary, Shared)
+ */
+void
+test_sr_lib_0306(void)
+{
+	extern int cwsw_lib_cs_protection_count;
+	int localct = 1234;	/* just want some value non-zero, unlikely to be seen */
+
+	cwsw_lib_cs_protection_count = -1;
+	localct = Cwsw_Critical_Protect(0);
+	CU_ASSERT_EQUAL(cwsw_lib_cs_protection_count, 1);
+	CU_ASSERT_EQUAL(localct, 1);
 }
