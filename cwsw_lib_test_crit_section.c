@@ -197,7 +197,10 @@ test_sr_lib_0304_floor(void)
  *	when the counter is already at max will result in a data-range fault. The
  *	requirement is stated in terms of the range of the counter, not the value
  *	of the counter when the enter or leave APIs are called.
- *
+ * 
+ *	@note Because of the assertion built into the UUT, be aware that this 
+ *	function will invoke cwsw_assert().
+ * 
  *	@xreq{SR_LIB_0306}	Behavior when nesting counter invalid.	(Primary)
  *	@xreq{SR_LIB_0305}	Data range of nesting counter.			(Primary, Shared)
  */
@@ -211,4 +214,33 @@ test_sr_lib_0306(void)
 	localct = Cwsw_Critical_Protect(0);
 	CU_ASSERT_EQUAL(cwsw_lib_cs_protection_count, 1);
 	CU_ASSERT_EQUAL(localct, 1);
+}
+
+
+/** Confirm fundamental behavior when entering a critical section for the first
+ * 	time.
+ * 	This function relies on a Function-Like Macro (FLM) that is configured by
+ * 	the integration project, to be whatever is suitable for the MCU
+ * 	architecture and system, for the specified protection level. For the
+ * 	purposes of this unit test, we are defining a callback that simply allows
+ * 	this UT case to track "activation."
+ *
+ * 	@xreq{SR_LIB_0307}	Protection Behavior upon 1st activation.
+ */
+void
+test_sr_lib_0307(void)
+{
+	extern int cwsw_lib_cs_protection_count;    /* cwsw_lib internal nesting counter */
+	extern bool crit_section_seen;              /* project-level UT-focused var */
+	extern int crit_sec_prot_lvl;               /* project-level UT-focused var */
+
+    cwsw_lib_cs_protection_count = 0;
+	crit_section_seen = false;
+	crit_sec_prot_lvl = INT_MAX;
+
+	int localct = Cwsw_Critical_Protect(0);
+
+	CU_ASSERT_EQUAL(localct, 1);
+	CU_ASSERT_EQUAL(crit_section_seen, true);
+	CU_ASSERT_EQUAL(crit_sec_prot_lvl, 0)
 }

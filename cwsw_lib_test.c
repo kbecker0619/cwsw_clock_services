@@ -146,7 +146,7 @@ main(void)
 
 	/* CWSW Library Protected Regions test suite */
 	do {
-		CU_pTest tests[7] = {0};
+		CU_pTest tests[8] = {0};
 		if(cu_setup_ok)
 		{
 			pSuite = CU_add_suite(
@@ -166,7 +166,8 @@ main(void)
 			tests[3] = CU_add_test(pSuite, "SR_LIB_0303: Critical Section Counter: Increment to Max Nesting Depth",		test_sr_lib_0303_ceiling);
 			tests[4] = CU_add_test(pSuite, "SR_LIB_0304: Critical Section Counter: Decrement from Max Nesting Depth",	test_sr_lib_0304_ceiling);
 			tests[5] = CU_add_test(pSuite, "SR_LIB_0304: Critical Section Counter: Decrement to Inactive",				test_sr_lib_0304_floor);
-			tests[5] = CU_add_test(pSuite, "SR_LIB_0306: Critical Section Counter: Invalid Value",						test_sr_lib_0306);
+			tests[6] = CU_add_test(pSuite, "SR_LIB_0306: Critical Section Counter: Invalid Value",						test_sr_lib_0306);
+			tests[7] = CU_add_test(pSuite, "SR_LIB_0307: Critical Section Counter: Enter when Inactive",				test_sr_lib_0307);
 			if(   !tests[0]
 			   || !tests[1]
 			   || !tests[2]
