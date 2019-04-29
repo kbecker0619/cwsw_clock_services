@@ -146,7 +146,7 @@ main(void)
 
 	/* CWSW Library Protected Regions test suite */
 	do {
-		CU_pTest tests[8] = {0};
+		CU_pTest tests[9] = {0};
 		if(cu_setup_ok)
 		{
 			pSuite = CU_add_suite(
@@ -160,14 +160,15 @@ main(void)
 			}
 
 			/* add tests to Operating States test suite */
-			tests[0] = CU_add_test(pSuite, "SR_LIB_0301: Critical Section API, Enter",			test_sr_lib_0301);
-			tests[1] = CU_add_test(pSuite, "SR_LIB_0302: Critical Section API, Leave",			test_sr_lib_0302);
-			tests[2] = CU_add_test(pSuite, "SR_LIB_0303: Critical Section Counter: Inactive",	test_sr_lib_0303_floor);
+			tests[0] = CU_add_test(pSuite, "SR_LIB_0301: Critical Section API, Enter",									test_sr_lib_0301);
+			tests[1] = CU_add_test(pSuite, "SR_LIB_0302: Critical Section API, Leave",									test_sr_lib_0302);
+			tests[2] = CU_add_test(pSuite, "SR_LIB_0303: Critical Section Counter: Inactive",							test_sr_lib_0303_floor);
 			tests[3] = CU_add_test(pSuite, "SR_LIB_0303: Critical Section Counter: Increment to Max Nesting Depth",		test_sr_lib_0303_ceiling);
 			tests[4] = CU_add_test(pSuite, "SR_LIB_0304: Critical Section Counter: Decrement from Max Nesting Depth",	test_sr_lib_0304_ceiling);
 			tests[5] = CU_add_test(pSuite, "SR_LIB_0304: Critical Section Counter: Decrement to Inactive",				test_sr_lib_0304_floor);
 			tests[6] = CU_add_test(pSuite, "SR_LIB_0306: Critical Section Counter: Invalid Value",						test_sr_lib_0306);
 			tests[7] = CU_add_test(pSuite, "SR_LIB_0307: Critical Section Counter: Enter when Inactive",				test_sr_lib_0307);
+			tests[8] = CU_add_test(pSuite, "SR_LIB_0308: Critical Section Counter: Enter when Active",					test_sr_lib_0308);
 			if(   !tests[0]
 			   || !tests[1]
 			   || !tests[2]
@@ -176,6 +177,7 @@ main(void)
 			   || !tests[5]
 			   || !tests[6]
 			   || !tests[7]
+			   || !tests[8]
 			   )
 			{
 				cu_setup_ok = false;
