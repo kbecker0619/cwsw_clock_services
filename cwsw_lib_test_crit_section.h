@@ -54,6 +54,8 @@ extern void test_sr_lib_0304_floor(void);
 extern void test_sr_lib_0306(void);
 extern void test_sr_lib_0307(void);
 extern void test_sr_lib_0308(void);
+extern void test_sr_lib_0309(void);
+extern void test_sr_lib_0310(void);
 
 
 #ifdef	__cplusplus
