@@ -1,3 +1,5 @@
-# cwsw_lib_ut
+# cwsw_clock_services
 
-Unit Test cases for this component. Intended to be a submodule of the integration project.
+Components included in this package:
+- Clock Services
+- Alarms
