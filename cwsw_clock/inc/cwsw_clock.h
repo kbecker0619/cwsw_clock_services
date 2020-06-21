@@ -40,9 +40,9 @@ extern "C" {
 enum { Cwsw_ClockSvc_TicResolution = 1 };	//!< number of milliseconds per clock tic
 
 enum eErrorCodes_ClkSvc {
-	kErr_ClkSvc_NoError = kErr_Lib_NoError,//!< kErr_ClkSvc_NoError
-	kerr_ClkSvc_NotInitialized,            //!< kerr_ClkSvc_NotInitialized
-	kerr_ClkSvc_BadParm,                   //!< kerr_ClkSvc_BadParm
+	kErr_ClkSvc_NoError = kErr_Lib_NoError,
+	kerr_ClkSvc_NotInitialized,
+	kerr_ClkSvc_BadParm,
 };
 
 
@@ -70,7 +70,7 @@ extern int32_t simclock;
 // ----	Public API ------------------------------------------------------------
 // ============================================================================
 
-#if 1
+#if 0
 #define CLOCK()		clock()
 #else
 #define CLOCK()		(simclock++)

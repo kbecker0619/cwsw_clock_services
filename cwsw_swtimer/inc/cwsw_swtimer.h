@@ -35,6 +35,17 @@ extern "C" {
 // ----	Constants -------------------------------------------------------------
 // ============================================================================
 
+/** Common values for timers and alarms. */
+enum {
+	tmr10ms   =   10 / Cwsw_ClockSvc_TicResolution,		//!<   10 ms
+	tmr25ms   =   25 / Cwsw_ClockSvc_TicResolution,		//!<   25 ms
+	tmr50ms   =   50 / Cwsw_ClockSvc_TicResolution,		//!<   50 ms
+	tmr100ms  =  100 / Cwsw_ClockSvc_TicResolution,		//!<  100 ms
+	tmr250ms  =  250 / Cwsw_ClockSvc_TicResolution,		//!<  250 ms
+	tmr500ms  =  500 / Cwsw_ClockSvc_TicResolution,		//!<  500 ms
+	tmr1000ms = 1000 / Cwsw_ClockSvc_TicResolution,		//!< 1000 ms
+};
+
 enum eErrorCodes_SwTmr {
 	kErr_SwTmr_NoError = kErr_Lib_NoError,
 	kErr_SwTmr_NotInitialized,

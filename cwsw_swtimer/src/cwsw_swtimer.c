@@ -72,6 +72,7 @@ Cwsw_SwAlarm__Init(
 		pTimer->tmrstate = kSwTimerDisabled;
 		return kErr_SwTmr_NoError;
 	}
+
 	return kErr_SwTmr_BadParm;
 }
 
