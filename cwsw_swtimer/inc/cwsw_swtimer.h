@@ -37,7 +37,9 @@ extern "C" {
 
 /** Common values for timers and alarms. */
 enum {
+	tmr5ms	  =    5 / Cwsw_ClockSvc_TicResolution,		//!<    5 ms
 	tmr10ms   =   10 / Cwsw_ClockSvc_TicResolution,		//!<   10 ms
+	tmr20ms   =   20 / Cwsw_ClockSvc_TicResolution,		//!<   20 ms
 	tmr25ms   =   25 / Cwsw_ClockSvc_TicResolution,		//!<   25 ms
 	tmr50ms   =   50 / Cwsw_ClockSvc_TicResolution,		//!<   50 ms
 	tmr100ms  =  100 / Cwsw_ClockSvc_TicResolution,		//!<  100 ms
@@ -55,9 +57,9 @@ enum eErrorCodes_SwTmr {
 /**	Enabled/disabled states for CWSW SW Timers.
  */
 enum eSwTimerState {
-	kSwTimerDisabled,
-	kSwTimerEnabled,
-	kSwTimerPaused
+	kTmrState_Disabled,
+	kTmrState_Enabled,
+	kTmrState_Paused
 };
 
 

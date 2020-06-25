@@ -69,7 +69,7 @@ Cwsw_SwAlarm__Init(
 		pTimer->reloadtm = tm_rearm;
 		pTimer->pEvQX = pEvQX;
 		pTimer->evid = evid;
-		pTimer->tmrstate = kSwTimerDisabled;
+		pTimer->tmrstate = kTmrState_Disabled;
 		return kErr_SwTmr_NoError;
 	}
 
@@ -112,9 +112,9 @@ Cwsw_SwAlarm__ManageTimer(ptCwswSwAlarm pTimer)
 	tErrorCodes_EvQ err;
 	tEvQ_Event ev;
 
-	if(!pTimer)									{ return; }
-	if(!(pTimer->tmrstate == kSwTimerEnabled))	{ return; }		// for now, MVP is to handle only an enabled timer
-	if(Get(Cwsw_Clock, pTimer->tm) > 0)			{ return; }		// timer's not expired yet
+	if(!pTimer)										{ return; }
+	if(!(pTimer->tmrstate == kTmrState_Enabled))	{ return; }		// for now, MVP is to handle only an enabled timer
+	if(Get(Cwsw_Clock, pTimer->tm) > 0)				{ return; }		// timer's not expired yet
 
 	// save target value to pass as argument to reaction task
 	exptm = pTimer->tm;
