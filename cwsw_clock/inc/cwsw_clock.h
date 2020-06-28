@@ -167,6 +167,10 @@ enum { Cwsw_ClockSvc };	/* Component ID for Clock Services */
  */
 #define Cwsw_Clock__Get(timer)				Cwsw_GetTimeLeft(timer)
 
+/** Target for Get(Cwsw_ClockSvc, CurrentTime)
+ */
+#define Cwsw_ClockSvc__Get(CurrentTime)		Cwsw_ClockSvc__TimerTic()
+
 
 /**	Determine if timer "a" has expired (i.e., matured) or not.
  *	@param   a - name of timer
