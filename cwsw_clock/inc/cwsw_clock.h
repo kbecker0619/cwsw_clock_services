@@ -11,8 +11,8 @@
  *	Author: Kevin L. Becker
  */
 
-#ifndef SMT_CLOCK_H_
-#define SMT_CLOCK_H_
+#ifndef CWSW_CLOCK_H
+#define CWSW_CLOCK_H
 
 // ============================================================================
 // ----	Include Files ---------------------------------------------------------
@@ -70,7 +70,7 @@ extern int32_t simclock;
 // ----	Public API ------------------------------------------------------------
 // ============================================================================
 
-#if 1
+#if 0
 #define CLOCK()		clock()
 #else
 #define CLOCK()		(simclock++)
@@ -112,6 +112,7 @@ extern tCwswClockTics Cwsw_ClockSvc__Task(void);
  *	@returns Raw tic value. For polled systems, this may be related to the time of day; for systems
  *			with an interrupt-driven system tic, this will probably be the number of tics since
  *			initialization.
+ *	@note Requires regular calls and a high timer tic resolution; assumption is 1ms.
  */
 extern tCwswClockTics Cwsw_ClockSvc__TimerTic(void);
 
@@ -157,7 +158,7 @@ extern tCwswClockTics Cwsw_ClockSvc__GetMaxMissedTics(void);
  *	the Module argument in your IDE (e.g, Eclipse, NetBeans, etc.), and select
  *	Go To Definition.
  */
-enum { Cwsw_ClockSvc };	/* Component ID for Clock Services */
+enum { Cwsw_ClockSvc, Cwsw_Clock };	/* Component ID for Clock Services */
 
 /**	Target for Set(Cwsw_Clock, timer, duration) API.
  */
@@ -194,4 +195,4 @@ enum { Cwsw_ClockSvc };	/* Component ID for Clock Services */
 }
 #endif
 
-#endif /* SMT_CLOCK_H_ */
+#endif /* CWSW_CLOCK_H */

@@ -37,6 +37,7 @@ extern "C" {
 
 /** Common values for timers and alarms. */
 enum {
+	tmr1ms	  =	   1 / Cwsw_ClockSvc_TicResolution,		//!<    1 ms. @note This is the native tic rate.
 	tmr5ms	  =    5 / Cwsw_ClockSvc_TicResolution,		//!<    5 ms
 	tmr10ms   =   10 / Cwsw_ClockSvc_TicResolution,		//!<   10 ms
 	tmr20ms   =   20 / Cwsw_ClockSvc_TicResolution,		//!<   20 ms
