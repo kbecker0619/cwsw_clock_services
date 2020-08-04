@@ -53,10 +53,16 @@ enum eErrorCodes_ClkSvc {
 typedef enum eErrorCodes_ClkSvc tClkSvc_ErrorCode;
 
 
+#if defined(_CVI_)
+typedef signed long tCwswClockTics, *pCwswClockTics;
+
+#else
 /*	building on windows, for windows, we can take advantage of MinGW's
  *	time.h...
  */
 typedef clock_t tCwswClockTics, *pCwswClockTics;
+
+#endif
 
 
 // ============================================================================
