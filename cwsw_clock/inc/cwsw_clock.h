@@ -123,7 +123,7 @@ extern tCwswClockTics Cwsw_ClockSvc__Task(void);
 extern tCwswClockTics Cwsw_ClockSvc__TimerTic(void);
 
 /**	Set the duration of a timer.
- *	@param[out]	timer		Reference to the specified timer.
+ *	@param[out]	pTimer		Reference to the specified timer.
  *	@param[in]	duration	Duration of the timer in timer tics. Negative values are not possible.
  *	@returns Error code, where 0 is no error.
  */
