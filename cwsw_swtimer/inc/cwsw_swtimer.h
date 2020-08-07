@@ -1,13 +1,11 @@
-/** @file cwsw_swtimer.h
- *
- *	Description:
+/** @file
+ *	@brief
  *
  *	\copyright
  *	Copyright (c) 2020 Kevin L. Becker. All rights reserved.
  *
- *	Original:
  *	Created on: Feb 21, 2020
- *	Author: KBECKE35
+ *	@author Kevin L. Becker
  */
 
 #ifndef CWSW_SWTIMER_H

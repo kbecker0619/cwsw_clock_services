@@ -7,9 +7,8 @@
  *	\copyright
  *	Copyright (c) 2020 Kevin L. Becker. All rights reserved.
  *
- *	Original:
  *	Created on: Sep 1, 2016
- *	Author: Kevin L. Becker
+ *	@author Kevin L. Becker
  */
 
 // ============================================================================
