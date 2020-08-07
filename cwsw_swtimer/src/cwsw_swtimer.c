@@ -89,7 +89,6 @@ Cwsw_SwAlarm__SetState(ptCwswSwAlarm pTimer, tSwTimerState newstate)
  *	If the timer has an event associated, post it to the designated event queue.
  *
  *	@param [in,out] pTimer	SW Timer to manage.
- *	@param pEvQX	Event queue to post event to.
  *
  *	To be worked out yet:
  *	- original intent was to avoid tying this module explicitly to the event queue component, but we
